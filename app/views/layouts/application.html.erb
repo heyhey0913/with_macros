@@ -4,12 +4,64 @@
     <title>WithMacros</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <nav class="nav navbar-nav navbar-left">
+        <span><%=link_to 'with まくろ', root_path %></span>
+      </nav>
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+                    <% if user_signed_in? %>
+                        <li><%= link_to ' マイページ', root_path %></li>
+                        <li><%= link_to ' myプロジェクト', root_path %></li>
+                        <li><%= link_to ' レシピ', root_path %></li>
+                        <li><%= link_to ' ログアウト', destroy_user_session_path, method: :delete %></li>
+                    <% else %>
+                        <li><%= link_to ' About', about_path %></li>
+                        <li><%= link_to ' PFC計算', pfc_calculation_path %></li>
+                        <li><%= link_to ' 新規登録', new_user_registration_path %></li>
+                        <li><%= link_to ' ログイン', new_user_session_path %></li>
+                    <% end %>
+                </ul>
+      </nav>
+    </div>
+  </header>
+
+
+        <div class="container">
+
+            <% if flash[:notice] %>
+                <div class="alert alert-success"><%= flash[:notice] %></div>
+            <% elsif flash[:alert] %>
+                <div class="alert alert-danger"><%= flash[:alert] %></div>
+            <% end %>
+
+
+            <%= yield %>
+
+        </div>
+  <script>
+    // flatpickrの初期化
+    flatpickr('#calendar');
+  </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>
