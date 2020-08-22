@@ -1,0 +1,86 @@
+<div class="container">
+	<div class="row">
+		<h3>新規プロジェクト作成</h3>
+	</div>
+
+	<%= form_with model: @project do |f| %>
+	<div class="row">
+		<div class="row">
+			<h3>入力項目</h3>
+		</div>
+		<div class="row">
+			<h3>必須項目</h3>
+		</div>
+		<div class="row">
+			<h3>現在の体重</h3>
+			<%= f.number_field :initial_weight, step: "0.1", min: "0", class: 'form-control' %>kg
+			<h3>目標体重</h3>
+			<%= f.number_field :target_weight, step: "0.1", min: "0", class: 'form-control' %>kg
+		</div>
+
+		<div class="row">
+			<h3>選択項目</h3>
+		</div>
+		<div class="row">
+			<h3>現在の体脂肪</h3>
+			<%= f.number_field :body_fat, min: "0", max: "70", class: 'form-control' %>
+			<h3>活動レベル</h3>
+			<%= f.select :active_factor, {
+				'1. 運動を全くしない、デスクワークなので仕事でも動かない(運動量レベル1.2)': 	1.2,
+				'2. 週に１～２回軽い運動をする、軽めの運動(運動量レベル1.375)': 			1.375,
+				'3. １週間に２～３回筋トレをする、適度にエクササイズ(運動量レベル1.55)': 	1.55,
+				'4. １週間に４～５回筋トレをする、それなりにハード(運動量レベル1.725)': 		1.725,
+				'5. ほぼ毎日ハードなトレーニング、肉体労働(運動量レベル1.9)': 				1.9,
+			}, {}, { class: 'form-control' } %>
+			<h3>一週間の目標</h3>
+			<%= f.number_field :weekly_target_weight, step: "0.1", min: "0", max: "1", :value => 0.5, class: 'form-control' %>kg
+
+			<label for="protein_magnification">タンパク質倍率：</label>
+			<select id="protein_magnification" name="protein_magnification" class='form-control' >
+				<option value="1">1</option>
+				<option value="1.5" selected>1.5</option>
+				<option value="2">2</option>
+				<option value="2.5">2.5</option>
+				<option value="2.5"></option>
+			</select>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<p>プロジェクト詳細</p>
+
+		<div class="row">
+			<p>一日の摂取カロリー</p>
+			<div id="bmr"></div>
+		</div>
+
+		<div class="row">
+			<p>一日の摂取カロリー</p>
+			<div id="maintenance_calorie"></div>
+		</div>
+
+		<div class="row">
+			<p>一日の摂取カロリー</p>
+			<div id="day_limit_calorie"></div>
+		</div>
+
+		<div class="row">
+			<p>プロジェクト期間</p>
+
+		</div>
+
+		<div class="row">
+			<p>目標体重</p>
+			<div id="test"></div>
+		</div>
+
+	</div>
+
+	<div class="row">				　　<!-- 入力完了ボタン -->
+		<%= submit_tag "作成" ,:class => 'btn btn-primary col-xs-4 col-xs-offset-4' %>
+	</div>
+	<% end %>
+</div>
+
+<%= javascript_include_tag 'project.js' %>

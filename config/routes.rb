@@ -11,4 +11,14 @@ Rails.application.routes.draw do
 	get 'homes/about' => 'homes#about', as: 'about'
 	get 'homes/pfc_calculation' => 'homes#pfc_calculation', as: 'pfc_calculation'
 
+	get 'users/leave' => 'users#leave', as: 'leave'
+	patch 'users/hide' => 'users#hide', as: 'hide'
+	resources :users, only: [:show, :index]
+
+	get 'projects/:id/graph' => 'projects#graph', as: 'graph'
+	resources :projects
+
+	get 'recipes/search' => 'recipes#search', as: 'search'
+	resources :recipes
+
 end

@@ -15,45 +15,61 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- 非同期通信を行うためのファイル指定 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript"></script>
+
   </head>
 
   <body>
-  <header class="navbar navbar-fixed-top navbar-inverse">
-    <div class="container">
-      <nav class="nav navbar-nav navbar-left">
-        <span><%=link_to 'with まくろ', root_path %></span>
-      </nav>
-      <nav>
-        <ul class="nav navbar-nav navbar-right">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><%=link_to 'with まくろ', root_path %></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav navbar-right">
                     <% if user_signed_in? %>
-                        <li><%= link_to ' マイページ', root_path %></li>
-                        <li><%= link_to ' myプロジェクト', root_path %></li>
-                        <li><%= link_to ' レシピ', root_path %></li>
-                        <li><%= link_to ' ログアウト', destroy_user_session_path, method: :delete %></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><%= link_to ' マイページ', users_path %> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><%= link_to ' myプロジェクト', projects_path %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><%= link_to ' レシピ', recipes_path %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><%= link_to ' ログアウト', destroy_user_session_path, method: :delete %></a>
                     <% else %>
-                        <li><%= link_to ' About', about_path %></li>
-                        <li><%= link_to ' PFC計算', pfc_calculation_path %></li>
-                        <li><%= link_to ' 新規登録', new_user_registration_path %></li>
-                        <li><%= link_to ' ログイン', new_user_session_path %></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><%= link_to ' About', about_path %> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><%= link_to ' PFC計算', pfc_calculation_path %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><%= link_to ' 新規登録', new_user_registration_path %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><%= link_to ' ログイン', new_user_session_path %></a>
+      </li>
                     <% end %>
-                </ul>
-      </nav>
-    </div>
-  </header>
+    </ul>
+  </div>
+</nav>
 
 
-        <div class="container">
 
-            <% if flash[:notice] %>
-                <div class="alert alert-success"><%= flash[:notice] %></div>
-            <% elsif flash[:alert] %>
-                <div class="alert alert-danger"><%= flash[:alert] %></div>
-            <% end %>
+    <% if flash[:notice] %>
+        <div class="alert alert-success"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+        <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
 
-
-            <%= yield %>
-
-        </div>
+    <%= yield %>
   <script>
     // flatpickrの初期化
     flatpickr('#calendar');
