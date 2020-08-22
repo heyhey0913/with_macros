@@ -1,0 +1,2 @@
+class DairyLogsController < ApplicationController
+end

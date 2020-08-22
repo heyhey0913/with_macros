@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   	# Include default devise modules. Others available are:
   	# :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  	before_create :set_id
+  	before_create :set_optional_id
   	devise :database_authenticatable, :registerable,
   			:recoverable, :rememberable, :validatable
 
@@ -9,25 +9,23 @@ class User < ApplicationRecord
   	has_many :recipes, dependent: :destroy
 
 
-  	validates :nickname, 	presence: true
-  	validates :birth_date, 	presence: true
-  	validates :height, 		presence: true
-  	validates :sex, 		presence: true
+    validates :optional_id,  presence: true, uniqueness: true
+    validates :nickname,  presence: true
 
   	attachment :profile_image
 
-  	enum sex:{
-		男性:     	0,
-		女性:     	1,
-		その他:  	2
-	}
+  def age
+    d1=self.birth_date.strftime("%Y%m%d").to_i
+    d2=Date.today.strftime("%Y%m%d").to_i
+    return (d2 - d1) / 10000
+  end
 
 	private
-	def set_id
+	def set_optional_id
 		# id未設定、または、すでに同じidのレコードが存在する場合はループに入る
-		while self.id.blank? || User.find_by(id: self.id).present? do
-			# ランダムな20文字をidに設定し、whileの条件検証に戻る
-			self.id = SecureRandom.alphanumeric(10)
+		while self.optional_id.blank? || User.find_by(optional_id: self.optional_id).present? do
+			# ランダムな10文字をidに設定し、whileの条件検証に戻る
+			self.optional_id = SecureRandom.alphanumeric(10)
 		end
 	end
 

@@ -1,0 +1,8 @@
+<%= current_user.nickname %>
+<br>
+<br>
+<%= current_user.optional_id %>
+<br>
+<br>
+
+<div class="col-xs-1"><%= link_to '会員情報を編集する', edit_user_registration_path(current_user), class: "btn btn-primary" %></div>
