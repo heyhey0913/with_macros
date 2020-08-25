@@ -4,5 +4,34 @@
 <%= current_user.optional_id %>
 <br>
 <br>
+<%= current_user.target_weight %>
+<br>
+<br>
+<%= current_user.current_weight %>
+<br>
+<br>
+<%= current_user.active_factor %>
+<br>
+<br>
+<%= current_user.current_body_fat %>
+<br>
+<br>
+<%= current_user.weekly_target_weight %>
+<br>
+<br>
+<%= current_user.dairy_target_calorie %>
+<br>
+<br>
+<%= current_user.protein_intake_ratio %>
+<br>
+<br>
+<%= current_user.fat_intake_ratio %>
+<br>
+<br>
+<%= current_user.carbohydrate_intake_ratio %>
+<br>
+<br>
+
+<div class="col-xs-1"><%= link_to '目標を設定する', edit_user_path(current_user), class: "btn btn-primary" %></div>
 
 <div class="col-xs-1"><%= link_to '会員情報を編集する', edit_user_registration_path(current_user), class: "btn btn-primary" %></div>

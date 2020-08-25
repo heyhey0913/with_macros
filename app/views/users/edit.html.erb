@@ -1,9 +1,9 @@
 <div class="container">
 	<div class="row">
-		<h3>新規プロジェクト作成</h3>
+		<h3>目標設定</h3>
 	</div>
 
-	<%= form_with model: @project do |f| %>
+	<%= form_with model: current_user, url: user_path, method: :patch do |f| %>
 	<div class="row">
 		<div class="row">
 			<h3>入力項目</h3>
@@ -13,7 +13,7 @@
 		</div>
 		<div class="row">
 			<h3>現在の体重</h3>
-			<%= f.number_field :initial_weight, step: "0.1", min: "0", class: 'form-control' %>kg
+			<%= f.number_field :current_weight, step: "0.1", min: "0", class: 'form-control' %>kg
 			<h3>目標体重</h3>
 			<%= f.number_field :target_weight, step: "0.1", min: "0", class: 'form-control' %>kg
 		</div>
@@ -23,7 +23,7 @@
 		</div>
 		<div class="row">
 			<h3>現在の体脂肪</h3>
-			<%= f.number_field :body_fat, min: "0", max: "70", class: 'form-control' %>
+			<%= f.number_field :current_body_fat, min: "0", max: "70", class: 'form-control' %>
 			<h3>活動レベル</h3>
 			<%= f.select :active_factor, {
 				'1. 運動を全くしない、デスクワークなので仕事でも動かない(運動量レベル1.2)': 	1.2,
@@ -78,7 +78,7 @@
 	</div>
 
 	<div class="row">				　　<!-- 入力完了ボタン -->
-		<%= submit_tag "作成" ,:class => 'btn btn-primary col-xs-4 col-xs-offset-4' %>
+		<%= f.submit "作成" ,:class => 'btn btn-primary col-xs-4 col-xs-offset-4' %>
 	</div>
 	<% end %>
 </div>

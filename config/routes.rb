@@ -13,12 +13,12 @@ Rails.application.routes.draw do
 
 	get 'users/leave' => 'users#leave', as: 'leave'
 	patch 'users/hide' => 'users#hide', as: 'hide'
-	resources :users, only: [:show, :index]
+	resources :users, only: [:show, :index, :edit, :update]
 
-	get 'projects/:id/graph' => 'projects#graph', as: 'graph'
-	resources :projects
 
 	get 'recipes/search' => 'recipes#search', as: 'search'
 	resources :recipes
 
+	resources :intake_logs
+	resources :physical_logs
 end

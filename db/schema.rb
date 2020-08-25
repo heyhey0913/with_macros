@@ -10,24 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_19_165106) do
-
-  create_table "projects", force: :cascade do |t|
-    t.integer "user_id"
-    t.float "initial_weight"
-    t.float "target_weight"
-    t.float "current_weight"
-    t.float "active_factor"
-    t.integer "body_fat"
-    t.float "weekly_target_weight"
-    t.integer "dairy_target_calorie"
-    t.integer "protein_intake_ratio"
-    t.integer "fat_intake_ratio"
-    t.integer "carbohydrate_intake_ratio"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_projects_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 2020_08_24_143506) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -41,6 +24,15 @@ ActiveRecord::Schema.define(version: 2020_08_19_165106) do
     t.string "nickname"
     t.string "profile_image_id"
     t.boolean "is_valid", default: true, null: false
+    t.float "target_weight"
+    t.float "current_weight"
+    t.float "current_body_fat"
+    t.float "active_factor"
+    t.float "weekly_target_weight"
+    t.float "dairy_target_calorie"
+    t.float "protein_intake_ratio"
+    t.float "fat_intake_ratio"
+    t.float "carbohydrate_intake_ratio"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
