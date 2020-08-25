@@ -67,6 +67,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
   def user_params
-      params.require(:user).permit(:nickname, :optional_id, :profile_image_id, :email, :is_valid)
+      params.require(:user).permit(
+        :nickname,
+        :optional_id,
+        :profile_image_id,
+        :email,
+        :is_valid,
+        :initial_weight,
+        :target_weight,
+        :current_weight,
+        :active_factor,
+        :current_body_fat,
+        :weekly_target_weight,
+        :dairy_target_calorie,
+        :protein_intake_ratio,
+        :fat_intake_ratio,
+        :carbohydrate_intake_ratio
+      )
   end
 end
