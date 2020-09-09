@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div>
+      <h3>レシピに追加された食材</h3>
+    </div>
+    <div>
+      <table class="table table-hover table-bingrediented">
+        <thead>
+          <tr class="active">
+            <th  class="col-xs-1">食材名</th>
+            <th  class="col-xs-2">グラム</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipe_ingredients.each do |recipe_ingredient| %>
+          <tr>
+            <td class="p-center_v"><%= recipe_ingredient.ingredient.name %></td>
+            <td class="p-center_v"><%= recipe_ingredient.weight %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= form_with model: @latest_recipe, local: true do |f| %>
+  <div class="row">
+    <div class="form-group">
+      <%= f.label :dish_image, class: "col-xs-2 control-labeltext-left" %>
+      <%= f.attachment_field :dish_image %>
+      <div class="row">
+        <div class="col-xs-2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <h3>情報入力</h3>
+    </div>
+    <div class="form-group">
+      <%= f.label :dish_name %>
+      <%= f.text_field :dish_name, class: "validate required_dish_name form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :method %>
+      <%= f.text_area :method, class: "validate required_method form-control" %>
+    </div>
+    <div class="actions row">
+      <%= f.hidden_field :creation_status, :value => "内容確認" %>
+      <%= f.submit '内容確認へ進む', :class => 'btn btn-primary col-xs-12' %>
+    </div>
+  </div>
+  <% end %>
+  <%= form_with model: @latest_recipe, local: true do |f| %>
+  <div class="row">
+    <%= f.hidden_field :creation_status, :value => "食材選択" %>
+    <%= f.submit '食材選択へ戻る', :class => 'btn btn-primary col-xs-12' %>
+  </div>
+  <% end %>
+</div>
+
+<%= javascript_include_tag 'input_recipe.js' %>

@@ -31,7 +31,21 @@
 <%= current_user.carbohydrate_intake_ratio %>
 <br>
 <br>
-
+<%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg' , class: "rounded-circle pull-left profile-img", fallback: "no_image.jpeg", size:'100x100' %>
+<br>
+<br>
 <div class="col-xs-1"><%= link_to '目標を設定する', edit_user_path(current_user), class: "btn btn-primary" %></div>
+<br>
+<br>
 
 <div class="col-xs-1"><%= link_to '会員情報を編集する', edit_user_registration_path(current_user), class: "btn btn-primary" %></div>
+<br>
+<br>
+
+<div class="col-xs-1"><%= link_to '経過記録一覧を表示', progress_logs_path, class: "btn btn-primary" %></div>
+<br>
+<br>
+
+<div class="col-xs-1"><%= link_to '摂取記録一覧を表示', intake_logs_path, class: "btn btn-primary" %></div>
+
+

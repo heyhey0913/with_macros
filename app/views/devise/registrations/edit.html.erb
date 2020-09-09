@@ -34,6 +34,15 @@
       </div>
     </div>
 
+    <div class="form-group">
+      <%= f.label "プロフィール画像", class: "col-xs-2 control-labeltext-left" %>
+      <div class="row">
+        <div class="col-xs-2">
+          <%= f.attachment_field :profile_image %>
+        </div>
+      </div>
+    </div>
+
     <div class="ec-edit-registration-btn-wrap col-xs-offset-1 col-xs-10", style= "padding-left: 0px">
       <div class="col-xs-4">
         <%= f.submit "編集内容を保存する", class:"btn btn-primary", style: "width: 12em" %>

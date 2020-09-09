@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div>
+      <h3>レシピに追加された食材</h3>
+    </div>
+    <div>
+      <table class="table table-hover table-bingrediented">
+        <thead>
+          <tr class="active">
+            <th  class="col-xs-1">食材名</th>
+            <th  class="col-xs-2">グラム</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipe_ingredients.each do |recipe_ingredient| %>
+          <tr>
+            <td class="p-center_v"><%= recipe_ingredient.ingredient.name %></td>
+            <td class="p-center_v"><%= recipe_ingredient.weight %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+  <%= form_with model: @latest_recipe, local: true do |f| %>
+    <%= f.hidden_field :creation_status, :value => "情報入力" %>
+    <%= f.submit '情報入力へ戻る', :class => 'btn btn-primary col-xs-12' %>
+  <% end %>
+  </div>
+  <div class="row">
+  <%= form_with model: @latest_recipe, local: true do |f| %>
+    <%= f.hidden_field :creation_status, :value => "作成完了" %>
+    <%= f.submit 'レシピを保存する', :class => 'btn btn-primary col-xs-12' %>
+  <% end %>
+  </div>
+</div>

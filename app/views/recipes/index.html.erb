@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div data-turbolinks="false">
+      <%= link_to "レシピを作成",new_recipe_path,class: "btn btn-primary" %>
+    </div>
+    <div>
+      <h3>レシピ一覧</h3>
+    </div>
+    <div>
+      <table class="table table-hover table-brecipeed">
+        <thead>
+          <tr class="active">
+            <th  class="col-xs-1">レシピID</th>
+            <th  class="col-xs-1">料理画像</th>
+            <th  class="col-xs-1">料理名</th>
+            <th  class="col-xs-1">調理法</th>
+            <th  class="col-xs-1">総カロリー</th>
+            <th  class="col-xs-1">PFCバランス</th>
+            <th  class="col-xs-1">状態</th>
+            <th  class="col-xs-1">詳細</th>
+            <th  class="col-xs-1">削除</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipes.each do |recipe| %>
+          <tr>
+            <td class="p-center_v"><%= recipe.id %></td>
+            <td class="p-center_v"><%= attachment_image_tag recipe, :dish_image, :fill, 70, 70, format: 'jpeg' , class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %></td>
+            <td class="p-center_v"><%= recipe.dish_name %></td>
+            <td class="p-center_v"><%= recipe.method %></td>
+            <td class="p-center_v"><%= recipe.total_calorie %></td>
+            <td class="p-center_v">
+              <p><%= recipe.protein_ratio %>%</p>
+              <p><%= recipe.fat_ratio %>%</p>
+              <p><%= recipe.carbohydrate_ratio %>%</p>
+            </td>
+            <td class="p-center_v"><%= recipe.creation_status %></td>
+            <td class="p-center">
+              <%= link_to "詳細",recipe_path(recipe),class: "btn btn-primary" %>
+            </td>
+            <td class="p-center">
+              <%= link_to "削除",recipe_path(recipe),method: :delete,class: "btn btn-primary" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,7 @@ class User < ApplicationRecord
   attribute :fat_intake_ratio, :float, default: 20
 
 
-  validates :optional_id,  presence: true, uniqueness: true
+  validates :optional_id, uniqueness: true
   validates :nickname,  presence: true
 
 	attachment :profile_image

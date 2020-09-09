@@ -1,0 +1,2 @@
+class IntakeIngredient < ApplicationRecord
+end
