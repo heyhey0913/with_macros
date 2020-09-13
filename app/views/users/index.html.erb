@@ -34,7 +34,9 @@
 <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg' , class: "rounded-circle pull-left profile-img", fallback: "no_image.jpeg", size:'100x100' %>
 <br>
 <br>
-<div class="col-xs-1"><%= link_to '目標を設定する', edit_user_path(current_user), class: "btn btn-primary" %></div>
+<div class="col-xs-1"data-turbolinks="false">
+  <%= link_to '目標を設定する', edit_user_path(current_user), class: "btn btn-primary" %>
+</div>
 <br>
 <br>
 

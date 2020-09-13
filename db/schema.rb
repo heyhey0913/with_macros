@@ -26,34 +26,25 @@ ActiveRecord::Schema.define(version: 2020_08_27_073807) do
   end
 
   create_table "intake_ingredients", force: :cascade do |t|
-    t.integer "intake_log_id"
+    t.integer "user_id"
     t.integer "ingredient_id"
     t.float "weight"
+    t.date "recorded_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ingredient_id"], name: "index_intake_ingredients_on_ingredient_id"
-    t.index ["intake_log_id"], name: "index_intake_ingredients_on_intake_log_id"
-  end
-
-  create_table "intake_logs", force: :cascade do |t|
-    t.integer "user_id"
-    t.float "total_calorie"
-    t.float "total_protein"
-    t.float "total_fat"
-    t.float "total_carbohydrate"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_intake_logs_on_user_id"
+    t.index ["user_id"], name: "index_intake_ingredients_on_user_id"
   end
 
   create_table "intake_recipes", force: :cascade do |t|
-    t.integer "intake_log_id"
+    t.integer "user_id"
     t.integer "recipe_id"
-    t.float "weight"
+    t.float "number"
+    t.date "recorded_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["intake_log_id"], name: "index_intake_recipes_on_intake_log_id"
     t.index ["recipe_id"], name: "index_intake_recipes_on_recipe_id"
+    t.index ["user_id"], name: "index_intake_recipes_on_user_id"
   end
 
   create_table "progress_logs", force: :cascade do |t|
@@ -90,7 +81,7 @@ ActiveRecord::Schema.define(version: 2020_08_27_073807) do
     t.float "fat_content"
     t.float "carbohydrate_content"
     t.integer "creation_status", default: 0, null: false
-    t.boolean "is_published", default: false, null: false
+    t.boolean "is_published", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_recipes_on_user_id"
@@ -111,8 +102,8 @@ ActiveRecord::Schema.define(version: 2020_08_27_073807) do
     t.float "target_weight"
     t.float "current_weight"
     t.float "current_body_fat"
-    t.float "active_factor"
-    t.float "weekly_target_weight"
+    t.float "active_factor", default: 1.2
+    t.float "weekly_target_weight", default: 0.5
     t.float "dairy_target_calorie"
     t.float "protein_intake_ratio"
     t.float "fat_intake_ratio"

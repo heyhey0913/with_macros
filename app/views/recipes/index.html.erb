@@ -7,7 +7,7 @@
       <h3>レシピ一覧</h3>
     </div>
     <div>
-      <table class="table table-hover table-brecipeed">
+      <table class="table table-hover table-bordered">
         <thead>
           <tr class="active">
             <th  class="col-xs-1">レシピID</th>
@@ -28,11 +28,11 @@
             <td class="p-center_v"><%= attachment_image_tag recipe, :dish_image, :fill, 70, 70, format: 'jpeg' , class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %></td>
             <td class="p-center_v"><%= recipe.dish_name %></td>
             <td class="p-center_v"><%= recipe.method %></td>
-            <td class="p-center_v"><%= recipe.total_calorie %></td>
+            <td class="p-center_v"><%= (recipe.total_calorie).round %></td>
             <td class="p-center_v">
-              <p><%= recipe.protein_ratio %>%</p>
-              <p><%= recipe.fat_ratio %>%</p>
-              <p><%= recipe.carbohydrate_ratio %>%</p>
+              <p><%= (recipe.protein_ratio).round %>%</p>
+              <p><%= (recipe.fat_ratio).round %>%</p>
+              <p><%= (recipe.carbohydrate_ratio).round %>%</p>
             </td>
             <td class="p-center_v"><%= recipe.creation_status %></td>
             <td class="p-center">

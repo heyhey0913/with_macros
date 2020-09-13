@@ -31,6 +31,7 @@
   <div class="row">
   <%= form_with model: @latest_recipe, local: true do |f| %>
     <%= f.hidden_field :creation_status, :value => "作成完了" %>
+    <%= f.select :is_published, Recipe.is_publisheds.keys, :selected=>@latest_recipe.is_published %>
     <%= f.submit 'レシピを保存する', :class => 'btn btn-primary col-xs-12' %>
   <% end %>
   </div>

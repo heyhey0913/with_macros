@@ -40,6 +40,7 @@ class IngredientsController < ApplicationController
   end
 
   def show
+    @intake_ingredient = IntakeIngredient.new
     @ingredient = Ingredient.find(params[:id])
   end
 

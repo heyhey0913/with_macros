@@ -33,7 +33,7 @@
 				'5. ほぼ毎日ハードなトレーニング、肉体労働(運動量レベル1.9)': 				1.9,
 			}, {}, { class: 'form-control' } %>
 			<h3>一週間の目標</h3>
-			<%= f.number_field :weekly_target_weight, step: "0.1", min: "0", max: "1", :value => 0.5, class: 'form-control' %>kg
+			<%= f.number_field :weekly_target_weight, step: "0.1", min: "0", max: "1", class: 'form-control' %>kg
 
 			<label for="protein_magnification">タンパク質倍率：</label>
 			<select id="protein_magnification" name="protein_magnification" class='form-control' >
@@ -44,7 +44,6 @@
 				<option value="2.5"></option>
 			</select>
 		</div>
-
 	</div>
 
 	<div class="row">
@@ -74,7 +73,6 @@
 			<p>目標体重</p>
 			<div id="test"></div>
 		</div>
-
 	</div>
 
 	<div class="row">				　　<!-- 入力完了ボタン -->

@@ -4,7 +4,7 @@
       <h3>レシピに追加された食材</h3>
     </div>
     <div>
-      <table class="table table-hover table-bingrediented">
+      <table class="table table-hover table-bordered">
         <thead>
           <tr class="active">
             <th  class="col-xs-1">食材名</th>
@@ -38,7 +38,7 @@
     </div>
 
     <div>
-      <table class="table table-hover table-bingrediented">
+      <table class="table table-hover table-bordered">
         <thead>
           <tr class="active">
             <th  class="col-xs-1">食材名</th>
@@ -48,7 +48,7 @@
             <th  class="col-xs-1">炭水化物量</th>
             <th  class="col-xs-2">PFCバランス</th>
             <th  class="col-xs-1">グラム</th>
-            <th  class="col-xs-1">編集</th>
+            <th  class="col-xs-1"></th>
           </tr>
         </thead>
         <tbody>
@@ -66,7 +66,7 @@
                   <p><%= ingredient.carbohydrate_ratio.round %>%</p>
                 </td>
                 <td class="p-center">
-                  <%= f.number_field :weight, step: "0.1", min: "0", class: 'form-control' %>
+                  <%= f.number_field :weight, step: "1", min: "1", class: 'form-control' %>
                 </td>
                 <td class="p-center">
                   <%= f.hidden_field :ingredient_id, :value => ingredient.id %>

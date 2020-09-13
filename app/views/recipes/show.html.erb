@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row">
+    <h2>摂取記録に追加</h2>
+    <div>
+      <%= form_with model: @intake_recipe, local: true do |f| %>
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr class="active">
+            <th  class="col-xs-1">摂取量</th>
+            <th  class="col-xs-1">日付</th>
+            <th  class="col-xs-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-center">
+              <%= f.number_field :number, step: "0.1", min: "0.1", value: "1.0", class: 'form-control' %>人前
+            </td>
+            <td class="p-center">
+              <%= f.date_field :recorded_on, value: Date.today.strftime("%Y-%m-%d"), class: 'form-control' %>
+            </td>
+            <td class="p-center">
+              <%= f.hidden_field :recipe_id, :value => @recipe.id %>
+              <%= f.submit '追加', :class => 'btn btn-primary col-xs-12' %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <%= attachment_image_tag @recipe, :dish_image, :fill, 70, 70, format: 'jpeg' , class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %>
+  </div>
+  <div class="row">
+    <%= @recipe.dish_name %>
+  </div>
+  <div class="row">
+    <div>
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr class="active">
+            <th  class="col-xs-1">食材名</th>
+            <th  class="col-xs-2">グラム</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
+          <tr>
+            <td class="p-center_v"><%= recipe_ingredient.ingredient.name %></td>
+            <td class="p-center_v"><%= recipe_ingredient.weight.round %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <%= @recipe.method %>
+  </div>
+  <div class="row">
+    <%= (@recipe.total_calorie).round %>
+  </div>
+  <div class="row">
+    <p><%= (@recipe.protein_ratio).round %>%</p>
+    <p><%= (@recipe.fat_ratio).round %>%</p>
+    <p><%= (@recipe.carbohydrate_ratio).round %>%</p>
+  </div>
+  <div class="row">
+    <%= @recipe.creation_status %>
+  </div>
+  <div class="row">
+    <%= @recipe.is_published %>
+  </div>
+  <div class="row">
+    <%= link_to "編集",edit_recipe_path(@recipe),class: "btn btn-primary" %>
+  </div>
+</div>

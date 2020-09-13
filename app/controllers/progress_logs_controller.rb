@@ -17,6 +17,9 @@ class ProgressLogsController < ApplicationController
         @progress_log.user_id = current_user.id
 
         if @progress_log.save
+          # 経過記録の日付が最新の場合、ユーザーの現在値を更新
+          current_parameter_update
+
           flash[:notice] = "経過記録を登録しました。"
           redirect_to users_path
         else
@@ -27,7 +30,7 @@ class ProgressLogsController < ApplicationController
   end
 
   def index
-    @progress_logs = ProgressLog.where(user_id: current_user.id).order(created_at: "DESC")
+    @progress_logs = current_user.progress_logs.order(recorded_on: "DESC")
   end
 
   def show
@@ -49,6 +52,8 @@ class ProgressLogsController < ApplicationController
       else
         @progress_log = ProgressLog.find(params[:id])
         if @progress_log.update(progress_log_params)
+          # 経過記録の日付が最新の場合、ユーザーの現在値を更新
+          current_parameter_update
           redirect_to progress_logs_path
           flash[:notice] = "経過記録を更新しました。"
         else
@@ -76,5 +81,16 @@ class ProgressLogsController < ApplicationController
       )
   end
 
+  def current_parameter_update
+    progress_logs = current_user.progress_logs.order(recorded_on: "DESC")
+    latest_progress_log = progress_logs.first
+    if @progress_log.recorded_on == latest_progress_log.recorded_on
+      current_user.current_weight = @progress_log.weight
+      if @progress_log.body_fat.present?
+        current_user.current_body_fat = @progress_log.body_fat
+      end
+      current_user.save
+    end
+  end
 
 end

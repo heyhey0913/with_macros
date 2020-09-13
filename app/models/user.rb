@@ -5,7 +5,10 @@ class User < ApplicationRecord
 	devise :database_authenticatable, :registerable,
 			:recoverable, :rememberable, :validatable
 
-	has_many :recipes, dependent: :destroy
+  has_many :recipes, dependent: :destroy
+  has_many :progress_logs, dependent: :destroy
+  has_many :intake_recipes, dependent: :destroy
+  has_many :intake_ingredients, dependent: :destroy
 
   attribute :active_factor, :float, default: 1.2
   attribute :fat_intake_ratio, :float, default: 20

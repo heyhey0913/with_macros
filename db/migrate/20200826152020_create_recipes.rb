@@ -14,7 +14,7 @@ class CreateRecipes < ActiveRecord::Migration[5.2]
       t.float       :fat_content
       t.float       :carbohydrate_content
       t.integer     :creation_status, default: 0, null: false
-      t.boolean     :is_published, default: false, null: false
+      t.boolean     :is_published, default: true, null: false
 
       t.timestamps
     end

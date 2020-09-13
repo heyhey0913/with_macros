@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class IntakeLogTest < ActiveSupport::TestCase
+class IntakeIngredientsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

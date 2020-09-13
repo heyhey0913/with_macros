@@ -15,4 +15,6 @@ class Recipe < ApplicationRecord
     作成完了: 3,
   }
 
+  enum is_published: { 非公開: false, 公開: true }
+
 end

@@ -21,9 +21,11 @@ Rails.application.routes.draw do
   get 'recipes/confirm' => 'recipes#confirm', as: 'confirm_recipe'
 	resources :recipes
 
-  resources :recipe_ingredients, only: [:create, :update, :destroy]
+  resources :recipe_ingredients, only: [:create, :edit, :update, :destroy]
+  resources :intake_recipes, only: [:create, :edit, :update, :destroy]
+  resources :intake_ingredients, only: [:create, :edit, :update, :destroy]
 
-	resources :intake_logs
+	resources :intake_logs, only: [:index, :new]
   resources :progress_logs
   resources :ingredients
 end

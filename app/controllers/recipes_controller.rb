@@ -44,27 +44,32 @@ class RecipesController < ApplicationController
 	end
 
 	def index
-		@recipes = Recipe.all # where(is_published: true)
+		@recipes = Recipe.where(creation_status: "作成完了") # where(is_published: true)
 	end
 
 	def show
-
+    @intake_recipe = IntakeRecipe.new
+    @recipe = Recipe.find(params[:id])
 	end
 
 	def edit
+    @recipe = Recipe.find(params[:id])
 	end
 
 	def update
-    recipe = Recipe.find(params[:id])
-		recipe.update(recipe_params)
+    @recipe = Recipe.find(params[:id])
 
-		# 作成ステータスが作成完了の場合、レシピ詳細画面へ遷移
-		if recipe.creation_status == "作成完了"
-			redirect_to recipe_path(recipe)
+    if @recipe.creation_status == "食材選択"
+    	input_ingredient_information
 		else
-			@recipes = Recipe.where(user_id: current_user.id)
-			@latest_recipe = @recipes.last
-			creation_status_is
+			@recipe.update(recipe_params)
+
+			# 作成ステータスが作成完了の場合、レシピ詳細画面へ遷移
+			if @recipe.creation_status == "作成完了"
+				redirect_to recipe_path(@recipe)
+			else
+				creation_status_is
+			end
 		end
 	end
 
@@ -118,6 +123,8 @@ class RecipesController < ApplicationController
 
 	# 最新レシピの制作ステータスに応じてリダイレクト先を変更
 	def creation_status_is
+		@recipes = Recipe.where(user_id: current_user.id)
+		@latest_recipe = @recipes.last
 		case @latest_recipe.creation_status
 		when "食材選択"
 			redirect_to new_recipe_path
@@ -128,6 +135,38 @@ class RecipesController < ApplicationController
 		else
 			flash[:alert] = "予期しないアクセスを検知しました。"
 			redirect_to users_path
+		end
+	end
+
+	def input_ingredient_information
+		recipe_ingredients = RecipeIngredient.where(recipe_id: @recipe.id)
+		if recipe_ingredients.blank?
+			flash[:alert] = "食材を一つ以上選択してください。"
+			redirect_to new_recipe_path
+		else
+			sum_protein_content = 0
+			sum_fat_content = 0
+			sum_carbohydrate_content = 0
+
+			recipe_ingredients.each do |recipe_ingredient|
+				use_weight = recipe_ingredient.weight/100
+				sum_protein_content += recipe_ingredient.ingredient.protein_content*use_weight
+				sum_fat_content += recipe_ingredient.ingredient.fat_content*use_weight
+				sum_carbohydrate_content += recipe_ingredient.ingredient.carbohydrate_content*use_weight
+			end
+
+			sum_total_calorie = 4*sum_protein_content + 9*sum_fat_content + 4*sum_carbohydrate_content
+
+			@recipe.total_calorie = sum_total_calorie
+			@recipe.protein_content = sum_protein_content
+			@recipe.carbohydrate_content = sum_carbohydrate_content
+			@recipe.fat_content = sum_fat_content
+			@recipe.protein_ratio = 100*4*sum_protein_content/sum_total_calorie
+			@recipe.fat_ratio = 100*9*sum_fat_content/sum_total_calorie
+			@recipe.carbohydrate_ratio = 100*4*sum_carbohydrate_content/sum_total_calorie
+
+			@recipe.update(recipe_params)
+			creation_status_is
 		end
 	end
 

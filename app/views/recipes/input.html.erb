@@ -25,6 +25,9 @@
 
   <%= form_with model: @latest_recipe, local: true do |f| %>
   <div class="row">
+    <div class="item-image">
+      <%= attachment_image_tag @latest_recipe, :dish_image, class: "img-square", fallback: "no_image.jpeg", size:"300x300" %>
+    </div>
     <div class="form-group">
       <%= f.label :dish_image, class: "col-xs-2 control-labeltext-left" %>
       <%= f.attachment_field :dish_image %>
@@ -49,14 +52,14 @@
     </div>
     <div class="actions row">
       <%= f.hidden_field :creation_status, :value => "内容確認" %>
-      <%= f.submit '内容確認へ進む', :class => 'btn btn-primary col-xs-12' %>
+      <%= f.submit '内容確認へ進む', :class => 'btn btn-primary col-xs-12', :id => 'next' %>
     </div>
   </div>
   <% end %>
   <%= form_with model: @latest_recipe, local: true do |f| %>
   <div class="row">
     <%= f.hidden_field :creation_status, :value => "食材選択" %>
-    <%= f.submit '食材選択へ戻る', :class => 'btn btn-primary col-xs-12' %>
+    <%= f.submit '食材選択へ戻る', :class => 'btn btn-primary col-xs-12', :id => 'back' %>
   </div>
   <% end %>
 </div>
