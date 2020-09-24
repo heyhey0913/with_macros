@@ -1,0 +1,63 @@
+<div class="intake_log_show">
+  <p class="page-title"><%= @intake_date.recorded_on %>のカロリー摂取記録</p>
+  <div class="grid">
+    <div class="intake-info-box">
+      <p class="box-title">総カロリー</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="box-title"><%= @daily_total_calorie %> kcal</p>
+          </div>
+          <div class="col-md-6">
+            <p>タンパク質(p):<%= @daily_total_protein %></p>
+            <p>脂質(p):<%= @daily_total_fat %></p>
+            <p>炭水化物(p):<%= @daily_total_carbohydrate %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="intake-contents-box">
+      <p class="box-title">食事内容</p>
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr class="active">
+            <th  class="col-xs-1">料理or食材</th>
+            <th  class="col-xs-1">摂取量</th>
+            <th  class="col-xs-1">カロリー</th>
+            <th  class="col-xs-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @intake_date.intake_recipes.each do |intake_recipe| %>
+          <tr>
+            <td class="p-center_v">
+              <%= link_to recipe_path(intake_recipe.recipe_id) do %>
+              <%= intake_recipe.recipe.dish_name %>
+              <% end %>
+            </td>
+            <td class="p-center_v"><%= intake_recipe.number %>人前</td>
+            <td class="p-center_v"><%= (intake_recipe.recipe.total_calorie*intake_recipe.number).round %> kcal</td>
+            <td class="p-center">
+              <%= link_to "削除",intake_recipe_path(intake_recipe),method: :delete,class: "btn btn-primary" %>
+            </td>
+          </tr>
+          <% end %>
+          <% @intake_date.intake_ingredients.each do |intake_ingredient| %>
+          <tr>
+            <td class="p-center_v">
+              <%= link_to ingredient_path(intake_ingredient.ingredient_id) do %>
+              <%= intake_ingredient.ingredient.name %>
+              <% end %>
+            </td>
+            <td class="p-center_v"><%= intake_ingredient.weight.round %> g</td>
+            <td class="p-center_v"><%= (intake_ingredient.ingredient.total_calorie*intake_ingredient.weight/100).round %> kcal</td>
+            <td class="p-center">
+              <%= link_to "削除",intake_ingredient_path(intake_ingredient),method: :delete,class: "btn btn-primary" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="progress_logs_new">
+<%= form_with model: @progress_log do |f| %>
+<div class="one-box">
+  <p class="box-title">プログレス / 登録</p>
+  <div class="form-group">
+    <%= f.label :weight %>
+    <%= f.number_field :weight, step: "0.1", min: "0", class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :body_fat %>
+    <%= f.number_field :body_fat, step: "0.1", min: "0", class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label "身体画像を記録", class: "col-xs-2 control-labeltext-left" %>
+    <%= f.attachment_field :body_image %>
+    <div class="row">
+      <div class="col-xs-2">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :recorded_on %>
+    <%= f.date_field :recorded_on, value: Date.today.strftime("%Y-%m-%d"), class: 'form-control' %>
+  </div>
+</div>
+<div class="actions row">
+  <%= f.submit 'プログレスを登録', :class => 'btn btn-primary col-xs-12' %>
+</div>
+<% end %>
+</div>

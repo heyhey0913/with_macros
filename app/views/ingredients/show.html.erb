@@ -1,0 +1,20 @@
+<div class="ingredients_show">
+  <p class="page-title">食材 <%= @ingredient.name %></p>
+  <div class="grid">
+    <div class="add-intake-box">
+      <p class="box-title">カロリーログに追加</p>
+      <div>
+        <%= form_with url: create_intake_ingredient_path, local: true do |f| %>
+        <%= f.number_field :weight, step: "0.1", min: "0.1", value: "1.0", class: 'form-control' %>人前
+        <%= f.date_field :recorded_on, value: Date.today, class: 'form-control' %>
+        <%= f.hidden_field :recipe_id, :value => @ingredient.id %>
+        <%= f.submit '追加', :class => 'btn btn-outline-dark col-xs-12' %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="calorie-info-box">
+      <p class="box-title">1食分のカロリー成分</p>
+    </div>
+  </div>
+</div>

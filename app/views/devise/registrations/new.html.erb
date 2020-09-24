@@ -13,25 +13,6 @@
   </div>
 
   <div class="form-group">
-    <%= f.label "生年月日", class: "col-xs-3 control-label　text-left" %>
-      <input id="calendar" type="date" name="user[birth_date]">
-
-  </div>
-
-  <div class="form-group">
-    <%= f.label "身長(cm)", class: "col-xs-3 control-label　text-left" %>
-    <div class="col-xs-2">
-      <%= f.text_field :height, class:"form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label "性別", class: "col-xs-3 control-label　text-left" %>
-    <div class="col-xs-2">
-      <%= f.select :sex, User.sexes.keys, class:"form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
     <%= f.label "メールアドレス", class: "col-xs-3 control-label　text-left" %>
     <div class="col-xs-2">
       <%= f.email_field :email, autocomplete: "email", class:"form-control", placeholder: "macros@example.co.jp" %>

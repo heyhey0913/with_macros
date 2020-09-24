@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>本当に退会しますか？</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <%= link_to 'いいえ', users_path, class: "btn btn-primary" %>
+    </div>
+    <div class="col-xs-3">
+      <%= link_to 'はい', hide_path, method: :patch, class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>

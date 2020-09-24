@@ -1,0 +1,29 @@
+.ingredients_show{
+  max-width: 700px;
+  margin: auto;
+  .grid > * {
+    border-radius: 15px;
+    margin: 10px;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+        grid-template:
+      "box1  box2"  250px /
+      1fr    1fr;
+  }
+
+  .add-intake-box {
+    grid-area: box1;
+    background-color: #999999;
+  }
+
+  .calorie-info-box {
+    grid-area: box2;
+    background-color: #F5C8EE;
+  }
+}

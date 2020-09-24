@@ -1,0 +1,59 @@
+<div class="recipes_input">
+  <div class="grid">
+    <div class="selected-ingredients-box">
+      <p class="box-title">食材</p>
+      <table class="table table-hover table-bingrediented">
+        <thead>
+          <tr class="active">
+            <th  class="col-xs-1">食材名</th>
+            <th  class="col-xs-2">グラム</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipe_ingredients.each do |recipe_ingredient| %>
+          <tr>
+            <td class="p-center_v"><%= recipe_ingredient.ingredient.name %></td>
+            <td class="p-center_v"><%= recipe_ingredient.weight %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="calorie-info-box">
+      <p class="box-title">1食分のカロリー成分</p>
+    </div>
+
+    <div class="recipe-input-box">
+      <p class="box-title"><%= @latest_recipe.dish_name %>のレシピ</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="item-image">
+              <%= attachment_image_tag @latest_recipe, :dish_image, class: "img-square", fallback: "no_image.jpeg", size:"250x250" %>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <p>作り方</p>
+            <%= @latest_recipe.method %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <%= form_with model: @latest_recipe, local: true do |f| %>
+    <%= f.select :is_published, Recipe.is_publisheds.keys, :selected=>@latest_recipe.is_published %>
+  <div>
+    <%= f.hidden_field :creation_status, :value => "作成完了" %>
+    <%= f.submit 'レシピを保存する', :class => 'btn btn-outline-dark col-xs-12' , :id => 'next'%>
+  </div>
+    <% end %>
+
+  <div>
+    <%= form_with model: @latest_recipe, local: true do |f| %>
+    <%= f.hidden_field :creation_status, :value => "情報入力" %>
+    <%= f.submit '情報入力へ戻る', :class => 'col-xs-12' %>
+    <% end %>
+  </div>
+</div>

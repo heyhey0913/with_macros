@@ -1,0 +1,34 @@
+.users_edit{
+  max-width: 800px;
+  margin: auto;
+  .grid > * {
+    border-radius: 15px;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+        grid-template:
+      "box1  box2"  350px
+      "box3  box3"  150px /
+      3fr    4fr;
+  }
+
+  .required-item {
+    grid-area: box1;
+    background-color: #E8D0FA;
+  }
+
+  .optional-item {
+    grid-area: box2;
+    background-color: #F5C8EE;
+  }
+
+  .daily-intake-target-box {
+    grid-area: box3;
+    background-color: #B9E8FD;
+  }
+}

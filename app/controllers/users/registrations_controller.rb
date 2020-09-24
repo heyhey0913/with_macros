@@ -20,9 +20,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    @user = User.find(current_user.id)
+    if @user.update(user_params)
+      redirect_to users_path
+    else
+      render :edit
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -51,12 +56,33 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    users_path
+  end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+  def user_params
+      params.require(:user).permit(
+        :nickname,
+        :optional_id,
+        :profile_image,
+        :email,
+        :is_valid,
+        :initial_weight,
+        :target_weight,
+        :current_weight,
+        :active_factor,
+        :current_body_fat,
+        :weekly_target_weight,
+        :dairy_target_calorie,
+        :protein_intake_ratio,
+        :fat_intake_ratio,
+        :carbohydrate_intake_ratio
+      )
+  end
 end

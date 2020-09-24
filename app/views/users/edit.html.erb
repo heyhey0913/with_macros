@@ -1,0 +1,52 @@
+<div class="users_edit">
+	<%= form_with model: current_user, url: user_path, method: :patch do |f| %>
+	<div class="grid">
+
+		<div class="required-item">
+			<p class="box-title">必須項目</p>
+			<div class="content">
+				<h5>現在の体重</h5>
+				<%= f.number_field :current_weight, step: "0.1", min: "0", class: 'form-control' %>kg
+				<h5>目標体重</h5>
+				<%= f.number_field :target_weight, step: "0.1", min: "0", class: 'form-control' %>kg
+				<h5>現在の体脂肪率</h5>
+				<%= f.number_field :current_body_fat, min: "0", max: "70", class: 'form-control' %>
+			</div>
+		</div>
+
+		<div class="optional-item">
+			<p class="box-title">選択項目</p>
+			<h5>活動レベル</h5>
+			<%= f.select :active_factor, {
+				'1. 運動を全くしない、デスクワークなので仕事でも動かない(運動量レベル1.2)': 	1.2,
+				'2. 週に１～２回軽い運動をする、軽めの運動(運動量レベル1.375)': 			1.375,
+				'3. １週間に２～３回筋トレをする、適度にエクササイズ(運動量レベル1.55)': 	1.55,
+				'4. １週間に４～５回筋トレをする、それなりにハード(運動量レベル1.725)': 		1.725,
+				'5. ほぼ毎日ハードなトレーニング、肉体労働(運動量レベル1.9)': 				1.9,
+			}, {}, { class: 'form-control' } %>
+			<h5>一週間の目標</h5>
+			<%= f.number_field :weekly_target_weight, step: "0.1", min: "0", max: "1", class: 'form-control' %>kg
+
+			<label for="protein_magnification">タンパク質倍率：</label>
+			<select id="protein_magnification" name="protein_magnification" class='form-control' >
+				<option value="1">1</option>
+				<option value="1.5" selected>1.5</option>
+				<option value="2">2</option>
+				<option value="2.5">2.5</option>
+				<option value="2.5"></option>
+			</select>
+		</div>
+
+		<div class="daily-intake-target-box">
+			<p class="box-title">一日の摂取カロリー目標</p>
+			<div id="day_limit_calorie"></div>
+		</div>
+	</div>
+
+	<div>
+		<%= f.submit "保存" ,:class => 'btn btn-primary'%>
+	</div>
+	<% end %>
+</div>
+
+<%= javascript_include_tag 'calorie_calculation.js' %>

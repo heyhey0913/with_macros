@@ -10,9 +10,87 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
  */
 
 @import "bootstrap";
+@import "users", "users_edit", "homes_top", "intake_logs", "intake_log_show", "recipes_input", "recipes_show", "ingredients_show", "one-box";
 
+body {
+  background: #FFDBC9;
+}
+
+
+.text-contents {
+  margin: 40px;
+}
+
+#next {
+  margin-left: 45%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+li {
+  margin: 5px;
+}
+
+.main {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.navbar{
+  background: tomato;
+  border-radius: 10px;
+  margin: 10px;
+
+  .header{
+    height: 60px;
+  }
+  .footer{
+    height: 20px;
+  }
+}
+
+.box-title {
+  margin: 5px 0;
+  font-size: 1.5em;
+}
+
+.page-title {
+  margin: 5px 0;
+  font-size: 2em;
+}
+
+table{
+  background: white;
+  max-width: 90%;
+  margin: 10px auto;
+  border-radius:10px;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border:1px solid #666;
+  border-spacing: 0;
+  overflow:hidden;
+}
+td,th{
+  border-bottom:1px solid #666;
+}
+td,th{
+  padding:10px;
+}
+th{
+  background:#EFEFEF;
+}
+table tbody tr:last-child th,
+table tbody tr:last-child td{
+  border-bottom: none;
+}
+th + th,td{
+  border-left:1px solid #666;
+}
+
+.p-center_v {
+  vertical-align: middle;
+}

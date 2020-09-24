@@ -1,0 +1,95 @@
+<div class="users">
+  <div class="grid">
+    <div class="user-info-box">
+      <p class="box-title">ユーザー情報</p>
+      <%= current_user.nickname %>
+      <br>
+      ID : <%= current_user.optional_id %>
+      <br>
+      <br>
+      <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg' , class: "rounded-circle pull-left profile-img", fallback: "no_image.jpeg", size:'100x100' %>
+      <br>
+      <br>
+      <div class="col-xs-1"><%= link_to '会員情報を編集する', edit_user_registration_path(current_user), class: "btn btn-outline-dark" %></div>
+    </div>
+
+    <div class="progress-info-box">
+      <p class="box-title">プログレス</p>
+    <div class="contents">
+      <p>現在体重 : <%= current_user.current_weight %> kg</p>
+      <p>現在体重 : <%= current_user.target_weight %> kg</p>
+      <%= link_to 'プログレス一覧を表示', progress_logs_path, class: "btn btn-outline-dark" %>
+      <%= link_to 'プログレスを登録', new_progress_log_path, class: "btn btn-outline-dark" %>
+    </div>
+    </div>
+
+    <div class="intake-contents-box">
+      <p class="box-title">本日の食事内容</p>
+      <% if @today_intake.present? %>
+      <div>
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr class="active">
+              <th  class="col-xs-1">料理or食材</th>
+              <th  class="col-xs-1">摂取量</th>
+              <th  class="col-xs-1">カロリー</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @today_intake.intake_recipes.each do |intake_recipe| %>
+            <tr>
+              <td class="p-center_v">
+                <%= link_to recipe_path(intake_recipe.recipe_id) do %>
+                <%= intake_recipe.recipe.dish_name %>
+                <% end %>
+              </td>
+              <td class="p-center_v"><%= intake_recipe.number %>人前</td>
+              <td class="p-center_v"><%= (intake_recipe.recipe.total_calorie*intake_recipe.number).round %> kcal</td>
+            </tr>
+            <% end %>
+            <% @today_intake.intake_ingredients.each do |intake_ingredient| %>
+            <tr>
+              <td class="p-center_v">
+                <%= link_to ingredient_path(intake_ingredient.ingredient_id) do %>
+                <%= intake_ingredient.ingredient.name %>
+                <% end %>
+              </td>
+              <td class="p-center_v"><%= intake_ingredient.weight.round %> g</td>
+              <td class="p-center_v"><%= (intake_ingredient.ingredient.total_calorie*intake_ingredient.weight/100).round %> kcal</td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% else %>
+      本日の摂取記録を追加してください。
+      <% end %>
+      <%= link_to 'カロリーログ一覧を表示', intake_logs_path, class: "btn btn-outline-dark" %>
+    </div>
+
+    <div class="intake-info-box">
+      <p class="box-title">本日のカロリー目標</p>
+      <% if current_user.daily_target_calorie.blank? %>
+      一日の目標カロリーが設定されていません。
+      <% else %>
+      <p><%= @daily_total_calorie %> / <%= current_user.daily_target_calorie.round %> kcal</p>
+      <p>タンパク質(P) : <%= @daily_total_protein %> / <%= @daily_protein_content.round %> g</p>
+      <p>脂質(F) : <%= @daily_total_fat %> / <%= @daily_fat_content.round %> kcal</p>
+      <p>炭水化物(C) : <%= @daily_total_carbohydrate %> / <%= @daily_carbohydrate_content.round %> g</p>
+      <% end %>
+      <div class="col-xs-1"data-turbolinks="false">
+        <%= link_to '目標を設定する', edit_user_path(current_user), class: "btn btn-outline-dark" %>
+      </div>
+    </div>
+
+    <div class="user-recipes-box">
+      <p class="box-title">マイレシピ</p>
+      <% @recipes.each do |recipe| %>
+      <%= link_to recipe_path(recipe) do %>
+      <P>・<%= recipe.dish_name %></P>
+      <% end %>
+      <% end %>
+      <%= link_to 'もっと見る', recipes_path, class: "btn btn-outline-dark" %>
+    </div>
+  </div>
+</div>
