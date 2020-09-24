@@ -1,65 +1,49 @@
-<div class="container">
-  <div class="row">
-    <div>
-        <%= link_to "レシピから選ぶ",recipes_path, class: "btn btn-primary" %>
+<div class="intake_logs">
+  <div class="grid">
+    <div class="new-intake-log-box">
+      <div data-turbolinks="false">
+        <%= link_to "レシピから選ぶ",recipes_path, class: "btn btn-outline-dark" %>
+        <%= link_to "食材から選ぶ",ingredients_path, class: "btn btn-outline-dark" %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div>
-        <%= link_to "食材から選ぶ",ingredients_path, class: "btn btn-primary" %>
-    </div>
-  </div>
-  <div class="row">
-    <div>
-      <h3>カロリー摂取記録一覧</h3>
-    </div>
-    <div>
+    <div class="intake-logs-box">
+      <p class="box-title">カロリーログ / 一覧</p>
       <table class="table table-hover table-bordered">
         <thead>
           <tr class="active">
             <th  class="col-xs-1">日付</th>
-            <th  class="col-xs-1">料理or食材</th>
-            <th  class="col-xs-1">摂取量</th>
+            <th  class="col-xs-1">内容</th>
             <th  class="col-xs-1">総カロリー</th>
-            <th  class="col-xs-1"></th>
-            <th  class="col-xs-1"></th>
+            <th  class="col-xs-1">詳細</th>
           </tr>
         </thead>
         <tbody>
-          <% current_user.intake_recipes.each do |intake_recipe| %>
+          <% @intake_dates.each do |intake_date| %>
+          <% daily_total_calorie = 0 %>
           <tr>
-            <td class="p-center_v"><%= intake_recipe.recorded_on.strftime('%Y/%m/%d') %></td>
-            <td class="p-center_v">
-              <%= link_to recipe_path(intake_recipe.recipe_id) do %>
-                <%= intake_recipe.recipe.dish_name %>
+            <td><%= intake_date.recorded_on.strftime('%Y / %m / %d') %></td>
+            <td>
+              <% intake_date.intake_recipes.each do |intake_recipe| %>
+              <p>・<%= intake_recipe.recipe.dish_name %>　<%= intake_recipe.number %> 食</p>
+
+              <% intake_calorie = (intake_recipe.recipe.total_calorie*intake_recipe.number).round %>
+              <% daily_total_calorie += intake_calorie%>
+              <% end %>
+              <% intake_date.intake_ingredients.each do |intake_ingredient| %>
+              <p>・<%= intake_ingredient.ingredient.name %>　<%= intake_ingredient.weight.round %> g</p>
+
+              <% intake_calorie = (intake_ingredient.ingredient.total_calorie*intake_ingredient.weight/100).round %>
+              <% daily_total_calorie += intake_calorie%>
               <% end %>
             </td>
-            <td class="p-center_v"><%= intake_recipe.number %>人前</td>
-            <td class="p-center_v"><%= (intake_recipe.recipe.total_calorie*intake_recipe.number).round %> kcal</td>
-            <td class="p-center">
-              <%= link_to "編集",edit_intake_recipe_path(intake_recipe),class: "btn btn-primary" %>
+            <td>
+              <p><%= daily_total_calorie %> kcal</p>
             </td>
-            <td class="p-center">
-              <%= link_to "削除",intake_recipe_path(intake_recipe),method: :delete,class: "btn btn-primary" %>
-            </td>
-          </tr>
-          <% end %>
-          <% current_user.intake_ingredients.each do |intake_ingredient| %>
-          <tr>
-            <td class="p-center_v"><%= intake_ingredient.recorded_on.strftime('%Y/%m/%d') %></td>
-            <td class="p-center_v">
-              <%= link_to ingredient_path(intake_ingredient.ingredient_id) do %>
-                <%= intake_ingredient.ingredient.name %>
-              <% end %>
-            </td>
-            <td class="p-center_v"><%= intake_ingredient.weight.round %> g</td>
-            <td class="p-center_v"><%= (intake_ingredient.ingredient.total_calorie*intake_ingredient.weight).round %> kcal</td>
-            <td class="p-center">
-              <%= link_to "編集",edit_intake_ingredient_path(intake_ingredient),class: "btn btn-primary" %>
-            </td>
-            <td class="p-center">
-              <%= link_to "削除",intake_ingredient_path(intake_ingredient),method: :delete,class: "btn btn-primary" %>
-            </td>
+            <td>
+              <div data-turbolinks="false">
+                <%= link_to "詳細",intake_log_path(intake_date), class: "btn btn-outline-dark" %>
+              </td>
+            </div>
           </tr>
           <% end %>
         </tbody>

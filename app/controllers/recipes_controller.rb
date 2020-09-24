@@ -1,4 +1,5 @@
 class RecipesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
 	before_action :ensure_creating_recipe_exists, only: [:new, :input, :confirm]
 
 	def new

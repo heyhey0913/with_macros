@@ -1,46 +1,20 @@
-<div class="container">
-  <div class="row">
-    <h2>摂取記録に追加</h2>
-    <div>
-      <%= form_with model: @intake_ingredient, local: true do |f| %>
-      <table class="table table-hover table-bordered">
-        <thead>
-          <tr class="active">
-            <th  class="col-xs-1">摂取量</th>
-            <th  class="col-xs-1">日付</th>
-            <th  class="col-xs-1"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="p-center">
-              <%= f.number_field :weight, step: "1", min: "1", class: 'form-control' %> g
-            </td>
-            <td class="p-center">
-              <%= f.date_field :recorded_on, value: Date.today.strftime("%Y-%m-%d"), class: 'form-control' %>
-            </td>
-            <td class="p-center">
-              <%= f.hidden_field :ingredient_id, :value => @ingredient.id %>
-              <%= f.submit '追加', :class => 'btn btn-primary col-xs-12' %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <% end %>
+<div class="ingredients_show">
+  <p class="page-title">食材 <%= @ingredient.name %></p>
+  <div class="grid">
+    <div class="add-intake-box">
+      <p class="box-title">カロリーログに追加</p>
+      <div>
+        <%= form_with url: create_intake_ingredient_path, local: true do |f| %>
+        <%= f.number_field :weight, step: "0.1", min: "0.1", value: "1.0", class: 'form-control' %>人前
+        <%= f.date_field :recorded_on, value: Date.today, class: 'form-control' %>
+        <%= f.hidden_field :recipe_id, :value => @ingredient.id %>
+        <%= f.submit '追加', :class => 'btn btn-outline-dark col-xs-12' %>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <%= @ingredient.name %>
-  </div>
-  <div class="row">
-    <%= (@ingredient.total_calorie).round %>
-  </div>
-  <div class="row">
-    <p><%= (@ingredient.protein_ratio).round %>%</p>
-    <p><%= (@ingredient.fat_ratio).round %>%</p>
-    <p><%= (@ingredient.carbohydrate_ratio).round %>%</p>
-  </div>
-  <div class="row">
-    <%= link_to "編集",edit_ingredient_path(@ingredient),class: "btn btn-primary" %>
+
+    <div class="calorie-info-box">
+      <p class="box-title">1食分のカロリー成分</p>
+    </div>
   </div>
 </div>

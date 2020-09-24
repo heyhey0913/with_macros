@@ -1,9 +1,7 @@
-<div class="container">
-  <div class="row">
-    <div>
-      <h3>レシピに追加された食材</h3>
-    </div>
-    <div>
+<div class="recipes_input">
+  <div class="grid">
+    <div class="selected-ingredients-box">
+      <p class="box-title">食材</p>
       <table class="table table-hover table-bingrediented">
         <thead>
           <tr class="active">
@@ -21,18 +19,41 @@
         </tbody>
       </table>
     </div>
+
+    <div class="calorie-info-box">
+      <p class="box-title">1食分のカロリー成分</p>
+    </div>
+
+    <div class="recipe-input-box">
+      <p class="box-title"><%= @latest_recipe.dish_name %>のレシピ</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="item-image">
+              <%= attachment_image_tag @latest_recipe, :dish_image, class: "img-square", fallback: "no_image.jpeg", size:"250x250" %>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <p>作り方</p>
+            <%= @latest_recipe.method %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="row">
-  <%= form_with model: @latest_recipe, local: true do |f| %>
-    <%= f.hidden_field :creation_status, :value => "情報入力" %>
-    <%= f.submit '情報入力へ戻る', :class => 'btn btn-primary col-xs-12' %>
-  <% end %>
-  </div>
-  <div class="row">
-  <%= form_with model: @latest_recipe, local: true do |f| %>
-    <%= f.hidden_field :creation_status, :value => "作成完了" %>
+
+    <%= form_with model: @latest_recipe, local: true do |f| %>
     <%= f.select :is_published, Recipe.is_publisheds.keys, :selected=>@latest_recipe.is_published %>
-    <%= f.submit 'レシピを保存する', :class => 'btn btn-primary col-xs-12' %>
-  <% end %>
+  <div>
+    <%= f.hidden_field :creation_status, :value => "作成完了" %>
+    <%= f.submit 'レシピを保存する', :class => 'btn btn-outline-dark col-xs-12' , :id => 'next'%>
+  </div>
+    <% end %>
+
+  <div>
+    <%= form_with model: @latest_recipe, local: true do |f| %>
+    <%= f.hidden_field :creation_status, :value => "情報入力" %>
+    <%= f.submit '情報入力へ戻る', :class => 'col-xs-12' %>
+    <% end %>
   </div>
 </div>

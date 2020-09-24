@@ -7,8 +7,7 @@ class User < ApplicationRecord
 
   has_many :recipes, dependent: :destroy
   has_many :progress_logs, dependent: :destroy
-  has_many :intake_recipes, dependent: :destroy
-  has_many :intake_ingredients, dependent: :destroy
+  has_many :intake_dates, dependent: :destroy
 
   attribute :active_factor, :float, default: 1.2
   attribute :fat_intake_ratio, :float, default: 20
@@ -18,6 +17,10 @@ class User < ApplicationRecord
   validates :nickname,  presence: true
 
 	attachment :profile_image
+
+  def active_for_authentication?
+    super && (self.is_valid == true)
+  end
 
   def lean_body_mass
     self.current_weight * (1 - self.current_body_fat/100)
@@ -31,7 +34,7 @@ class User < ApplicationRecord
     self.basal_metabolic_rate * self.active_factor
   end
 
-  def calculate_dairy_target_calorie
+  def calculate_daily_target_calorie
     self.maintenance_calorie - 1000 * self.weekly_target_weight
   end
 

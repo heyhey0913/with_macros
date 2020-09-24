@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_27_073807) do
+ActiveRecord::Schema.define(version: 2020_09_21_082520) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
@@ -25,26 +25,32 @@ ActiveRecord::Schema.define(version: 2020_08_27_073807) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "intake_ingredients", force: :cascade do |t|
+  create_table "intake_dates", force: :cascade do |t|
     t.integer "user_id"
+    t.date "recorded_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_intake_dates_on_user_id"
+  end
+
+  create_table "intake_ingredients", force: :cascade do |t|
+    t.integer "intake_date_id"
     t.integer "ingredient_id"
     t.float "weight"
-    t.date "recorded_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ingredient_id"], name: "index_intake_ingredients_on_ingredient_id"
-    t.index ["user_id"], name: "index_intake_ingredients_on_user_id"
+    t.index ["intake_date_id"], name: "index_intake_ingredients_on_intake_date_id"
   end
 
   create_table "intake_recipes", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "intake_date_id"
     t.integer "recipe_id"
     t.float "number"
-    t.date "recorded_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["intake_date_id"], name: "index_intake_recipes_on_intake_date_id"
     t.index ["recipe_id"], name: "index_intake_recipes_on_recipe_id"
-    t.index ["user_id"], name: "index_intake_recipes_on_user_id"
   end
 
   create_table "progress_logs", force: :cascade do |t|
@@ -104,7 +110,7 @@ ActiveRecord::Schema.define(version: 2020_08_27_073807) do
     t.float "current_body_fat"
     t.float "active_factor", default: 1.2
     t.float "weekly_target_weight", default: 0.5
-    t.float "dairy_target_calorie"
+    t.float "daily_target_calorie"
     t.float "protein_intake_ratio"
     t.float "fat_intake_ratio"
     t.float "carbohydrate_intake_ratio"

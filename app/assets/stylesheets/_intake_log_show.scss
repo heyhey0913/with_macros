@@ -1,0 +1,27 @@
+.intake_log_show{
+  .grid > * {
+    border-radius: 15px;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+        grid-template:
+      "box1"  200px
+      "box2"  1fr /
+      1fr;
+  }
+
+  .intake-info-box {
+    grid-area: box1;
+    background-color: #FFCC99;
+  }
+
+  .intake-contents-box {
+    grid-area: box2;
+    background-color: #FF9900;
+  }
+}

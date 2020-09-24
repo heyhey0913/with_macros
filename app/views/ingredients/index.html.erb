@@ -1,48 +1,43 @@
-<div class="container">
-  <div class="row">
-    <%= link_to "新規登録",new_ingredient_path,class: "btn btn-primary" %>
-  </div>
-  <div class="row">
-    <div>
-      <h3>食材一覧</h3>
-    </div>
-    <div>
-      <table class="table table-hover table-bingrediented">
-        <thead>
-          <tr class="active">
-            <th  class="col-xs-1">食材名</th>
-            <th  class="col-xs-2">総カロリー</th>
-            <th  class="col-xs-1">タンパク質量</th>
-            <th  class="col-xs-1">脂質量</th>
-            <th  class="col-xs-1">炭水化物量</th>
-            <th  class="col-xs-2">PFCバランス</th>
-            <th  class="col-xs-1">詳細</th>
-            <th  class="col-xs-1">編集</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @ingredients.each do |ingredient| %>
-          <tr>
-            <td class="p-center_v"><%= ingredient.name %></td>
-            <td class="p-center_v"><%= ingredient.total_calorie.round %></td>
-            <td class="p-center_v"><%= ingredient.protein_content.round %></td>
-            <td class="p-center_v"><%= ingredient.fat_content.round %></td>
-            <td class="p-center_v"><%= ingredient.carbohydrate_content.round %></td>
-            <td class="p-center_v">
-              <p><%= ingredient.protein_ratio.round %>%</p>
-              <p><%= ingredient.fat_ratio.round %>%</p>
-              <p><%= ingredient.carbohydrate_ratio.round %>%</p>
-            </td>
-            <td class="p-center">
-              <%= link_to "詳細",ingredient_path(ingredient),class: "btn btn-primary" %>
-            </td>
-            <td class="p-center">
-              <%= link_to "編集",edit_ingredient_path(ingredient),class: "btn btn-primary" %>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+<div class="ingredients">
+  <div class="one-box">
+    <p class="box-title">食材一覧</p>
+    <div class="container">
+      <div class="row">
+        <table class="table table-hover table-bingrediented">
+          <thead>
+            <tr class="active">
+              <th  class="col-xs-1">食材名</th>
+              <th  class="col-xs-2">総カロリー</th>
+              <th  class="col-xs-1">タンパク質量</th>
+              <th  class="col-xs-1">脂質量</th>
+              <th  class="col-xs-1">炭水化物量</th>
+              <th  class="col-xs-2">PFCバランス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @ingredients.each do |ingredient| %>
+            <tr>
+              <td class="p-center_v">
+                <div data-turbolinks="false">
+                  <%= link_to ingredient_path(ingredient) do %>
+                  <%= ingredient.name %>
+                  <% end %>
+                </div>
+              </td>
+              <td class="p-center_v"><%= ingredient.total_calorie.round %></td>
+              <td class="p-center_v"><%= ingredient.protein_content.round %></td>
+              <td class="p-center_v"><%= ingredient.fat_content.round %></td>
+              <td class="p-center_v"><%= ingredient.carbohydrate_content.round %></td>
+              <td class="p-center_v">
+                <p><%= ingredient.protein_ratio.round %>%</p>
+                <p><%= ingredient.fat_ratio.round %>%</p>
+                <p><%= ingredient.carbohydrate_ratio.round %>%</p>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

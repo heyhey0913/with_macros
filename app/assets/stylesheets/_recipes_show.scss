@@ -1,0 +1,39 @@
+.recipes_show{
+  .grid > * {
+    border-radius: 15px;
+    margin: 10px;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+        grid-template:
+      "box1  box4  box4"  250px
+      "box2  box4  box4"  250px
+      "0000  box4  box4"  150px /
+      1fr    1fr   1fr;
+  }
+
+  .add-intake-box {
+    grid-area: box1;
+    background-color: #E8D0FA;
+  }
+
+  .calorie-info-box {
+    grid-area: box2;
+    background-color: #F5C8EE;
+  }
+
+  .recipe-edit-link-box {
+    grid-area: box3;
+    background-color: #B9E8FD;
+  }
+
+  .recipe-info-box {
+    grid-area: box4;
+    background-color: #F8B9C3;
+  }
+}

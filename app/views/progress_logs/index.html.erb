@@ -1,41 +1,43 @@
-<div class="container">
-  <div class="row">
-    <div>
-      <h3>経過記録一覧</h3>
-    </div>
-    <div>
-      <table class="table table-hover table-bordered">
-        <thead>
-          <tr class="active">
-            <th  class="col-xs-1">身体画像</th>
-            <th  class="col-xs-1">日付</th>
-            <th  class="col-xs-5">体重</th>
-            <th  class="col-xs-2">体脂肪率</th>
-            <th  class="col-xs-1">編集</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @progress_logs.each do |progress_log| %>
-          <tr>
-            <td class="p-center_v"><%= attachment_image_tag progress_log, :body_image, :fill, 70, 70, format: 'jpeg' , class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %></td>
-            <td class="p-center_v"><%= progress_log.recorded_on.strftime('%Y/%m/%d') %></td>
-            <td class="p-center_v">
-              <%= progress_log.weight %> kg
-            </td>
-            <td class="p-center_v">
-              <% if progress_log.body_fat.present? %>
-              <%= progress_log.body_fat %> %
-              <% else %>
+<div class="progress_logs">
+  <div class="one-box">
+      <p class="box-title">プログレス / 一覧</p>
+    <div class="container">
+      <div class="row">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr class="active">
+              <th>身体画像</th>
+              <th>日付</th>
+              <th>体重</th>
+              <th>体脂肪率</th>
+              <th>編集</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @progress_logs.each do |progress_log| %>
+            <tr>
+              <td class="p-center_v"><%= attachment_image_tag progress_log, :body_image, :fill, 70, 70, format: 'jpeg' , class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %></td>
+              <td class="p-center_v"><%= progress_log.recorded_on.strftime('%Y/%m/%d') %></td>
+              <td class="p-center_v">
+                <%= progress_log.weight %> kg
+              </td>
+              <td class="p-center_v">
+                <% if progress_log.body_fat.present? %>
+                <%= progress_log.body_fat %> %
+                <% else %>
                 ---
-              <% end %>
-            </td>
-            <td class="p-center">
-              <%= link_to "編集",edit_progress_log_path(progress_log),class: "btn btn-primary" %>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+                <% end %>
+              </td>
+              <td class="p-center">
+                <div data-turbolinks="false">
+                <%= link_to "編集",edit_progress_log_path(progress_log),class: "btn btn-primary" %>
+                </div>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

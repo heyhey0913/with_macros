@@ -22,10 +22,14 @@ Rails.application.routes.draw do
 	resources :recipes
 
   resources :recipe_ingredients, only: [:create, :edit, :update, :destroy]
-  resources :intake_recipes, only: [:create, :edit, :update, :destroy]
-  resources :intake_ingredients, only: [:create, :edit, :update, :destroy]
+  resources :intake_ingredients, only: [:edit, :update, :destroy]
+  resources :intake_recipes, only: [:edit, :update, :destroy]
 
-	resources :intake_logs, only: [:index, :new]
+  post 'intake_ingredient' => 'intake_ingredients#create', as: 'create_intake_ingredient'
+
+  post 'intake_recipe' => 'intake_recipes#create', as: 'create_intake_recipe'
+
+	resources :intake_logs, only: [:index, :show]
   resources :progress_logs
   resources :ingredients
 end

@@ -1,12 +1,11 @@
 class IntakeIngredient < ApplicationRecord
   belongs_to :ingredient
-  belongs_to :user
+  belongs_to :intake_date
 
   with_options presence: true do
-    validates :user_id
+    validates :intake_date_id
     validates :ingredient_id
     validates :weight
-    validates :recorded_on
   end
 
 end

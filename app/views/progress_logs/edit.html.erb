@@ -1,7 +1,7 @@
-<div class="container">
-  <div class="row">
-    <h2>経過記録 / 編集</h2>
+<div class="progress_log_edit">
     <%= form_with model: @progress_log do |f| %>
+  <div class="one-box">
+      <p class="box-title">プログレス / 編集</p>
     <div class="row">
       <%= f.label :weight %>
       <%= f.number_field :weight, step: "0.1", min: "0", class: 'form-control' %>
@@ -22,10 +22,10 @@
         </div>
       </div>
     </div>
-    <div class="actions row">
-      <%= f.submit '経過記録を更新', :class => 'btn btn-primary col-xs-12' %>
+  </div>
+    <div>
+      <%= f.submit '更新', :class => 'btn btn-outline-dark col-xs-12' , :id => 'next'%>
     </div>
     <% end %>
-  </div>
-  <%= link_to "経過記録を削除する",progress_log_path(@progress_log),method: :delete,data: { confirm: 'この経過記録を削除しますか?' },class: "btn btn-danger col-xs-offset-3 col-xs-6" %>
+  <%= link_to "プログレスを削除する",progress_log_path(@progress_log),method: :delete,data: { confirm: 'このプログレスを削除しますか?' } %>
 </div>

@@ -13,7 +13,7 @@ class AddDetailsToUsers < ActiveRecord::Migration[5.2]
 	add_column :users, :current_body_fat, :float
 	add_column :users, :active_factor, :float, default: 1.2
 	add_column :users, :weekly_target_weight, :float, default: 0.5
-	add_column :users, :dairy_target_calorie, :float
+	add_column :users, :daily_target_calorie, :float
 	add_column :users, :protein_intake_ratio, :float
 	add_column :users, :fat_intake_ratio, :float
 	add_column :users, :carbohydrate_intake_ratio, :float
