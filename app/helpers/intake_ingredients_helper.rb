@@ -1,0 +1,2 @@
+module IntakeIngredientsHelper
+end

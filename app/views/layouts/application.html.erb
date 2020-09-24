@@ -1,83 +1,94 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>WithMacros</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <title>WithMacros</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <!-- 非同期通信を行うためのファイル指定 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript"></script>
+  <!-- 非同期通信を行うためのファイル指定 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript"></script>
 
-  </head>
+</head>
 
-  <body>
+<body>
+  <nav class="navbar navbar-expand-md navbar-light header" data-turbolinks="false">
+    <a class="navbar-brand" href="/">うぃずまくろ</a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#bs-navi" aria-controls="bs-navi" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="bs-navi">
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+        <li class="nav-item"><a class="btn btn-danger" href="/users">マイページ</a></li>
+        <li class="nav-item dropdown">
+          <a class="btn btn-danger dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            レシピ
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="/recipes">一覧</a>
+            <a class="dropdown-item" href="/recipes/new">レシピを投稿</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="btn btn-danger dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            カロリーログ
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="/intake_logs">一覧</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="btn btn-danger dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            プログレス
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="/progress_logs">一覧</a>
+            <a class="dropdown-item" href="/progress_logs/new">記録を追加</a>
+          </div>
+        </li>
+        <li class="nav-item btn btn-outline-dark">
+            <%= link_to ' ログアウト', destroy_user_session_path, method: :delete %>
+        </li>
+        <% else %>
+        <li class="nav-item"><a class="btn btn-danger" href="/users/sign_up">新規登録</a></li>
+        <li class="nav-item"><a class="btn btn-danger" href="/users/sign_in">ログイン</a></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#"><%=link_to 'with まくろ', root_path %></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav navbar-right">
-                    <% if user_signed_in? %>
-      <li class="nav-item active">
-        <a class="nav-link" href="#"><%= link_to ' マイページ', users_path %> <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><%= link_to ' カロリー摂取記録登録', new_intake_log_path %></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><%= link_to ' レシピ', recipes_path %></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><%= link_to ' ログアウト', destroy_user_session_path, method: :delete %></a>
-                    <% else %>
-      <li class="nav-item active">
-        <a class="nav-link" href="#"><%= link_to ' About', about_path %> <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><%= link_to ' PFC計算', pfc_calculation_path %></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><%= link_to ' 新規登録', new_user_registration_path %></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><%= link_to ' ログイン', new_user_session_path %></a>
-      </li>
-                    <% end %>
-    </ul>
-  </div>
-</nav>
-
-
-
-    <% if flash[:notice] %>
-        <div class="alert alert-success"><%= flash[:notice] %></div>
-    <% elsif flash[:alert] %>
-        <div class="alert alert-danger"><%= flash[:alert] %></div>
-    <% end %>
-
+  <% if flash[:notice] %>
+  <div class="alert alert-success"><%= flash[:notice] %></div>
+  <% elsif flash[:alert] %>
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+  <% end %>
+  <div class="main">
     <%= yield %>
-  <script>
-    // flatpickrの初期化
-    flatpickr('#calendar');
-  </script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+  </div>
+  <nav class="navbar navbar-expand-lg footer">
+    <p class="ml-auto copy-right">©with-macros.co</p>
+  </nav>
+
+  <script>flatpickr('#calendar');</script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
 </html>

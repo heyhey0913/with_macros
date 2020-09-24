@@ -1,0 +1,89 @@
+<div class="recipes_new">
+  <div class="one-box">
+    <div>
+      <h3>レシピに追加された食材</h3>
+    </div>
+    <div>
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr class="active">
+            <th  class="col-xs-1">食材名</th>
+            <th  class="col-xs-2">グラム</th>
+            <th  class="col-xs-1">削除</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipe_ingredients.each do |recipe_ingredient| %>
+          <tr>
+            <td class="p-center_v"><%= recipe_ingredient.ingredient.name %></td>
+            <td class="p-center_v">
+              <%= form_with model: recipe_ingredient, local: true do |f| %>
+                  <%= f.number_field :weight, step: "0.1", min: "0", class: 'form-control' %>
+                  <%= f.submit 'グラムを変更', :class => 'btn btn-outline-dark col-xs-12' %>
+              <% end %>
+            </td>
+            <td class="p-center">
+              <%= link_to "削除",recipe_ingredient_path(recipe_ingredient),method: :delete,class: "btn btn-outline-dark" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <%= form_with model: @latest_recipe, local: true do |f| %>
+      <%= f.hidden_field :creation_status, :value => "情報入力" %>
+      <%= f.submit '情報入力へ進む', :class => 'btn btn-outline-dark col-xs-12', :id => 'next'%>
+    <% end %>
+  </div>
+
+  <div class="one-box">
+    <div>
+      <h3>食材一覧</h3>
+    </div>
+
+    <div>
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr class="active">
+            <th  class="col-xs-1">食材名</th>
+            <th  class="col-xs-2">総カロリー</th>
+            <th  class="col-xs-1">タンパク質量</th>
+            <th  class="col-xs-1">脂質量</th>
+            <th  class="col-xs-1">炭水化物量</th>
+            <th  class="col-xs-2">PFCバランス</th>
+            <th  class="col-xs-1">グラム</th>
+            <th  class="col-xs-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @ingredients.each do |ingredient| %>
+            <%= form_with model: @recipe_ingredient, local: true do |f| %>
+              <tr>
+                <td class="p-center_v"><%= ingredient.name %></td>
+                <td class="p-center_v"><%= ingredient.total_calorie.round %></td>
+                <td class="p-center_v"><%= ingredient.protein_content.round %></td>
+                <td class="p-center_v"><%= ingredient.fat_content.round %></td>
+                <td class="p-center_v"><%= ingredient.carbohydrate_content.round %></td>
+                <td class="p-center_v">
+                  <p><%= ingredient.protein_ratio.round %>%</p>
+                  <p><%= ingredient.fat_ratio.round %>%</p>
+                  <p><%= ingredient.carbohydrate_ratio.round %>%</p>
+                </td>
+                <td class="p-center">
+                  <%= f.number_field :weight, step: "1", min: "1", class: 'form-control' %>
+                </td>
+                <td class="p-center">
+                  <%= f.hidden_field :ingredient_id, :value => ingredient.id %>
+                  <%= f.submit '追加', :class => 'btn btn-outline-dark col-xs-12' %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="recipes">
+  <div class="one-box-colorless" data-turbolinks="false">
+    <%= link_to "レシピを作成",new_recipe_path,class: "btn btn-outline-dark" %>
+  </div>
+  <div class="one-box">
+    <div class="container">
+      <p class="box-title">レシピ / 一覧</p>
+      <div>
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr class="active">
+              <th  class="col-xs-1">レシピID</th>
+              <th  class="col-xs-1">料理画像</th>
+              <th  class="col-xs-1">料理名</th>
+              <th  class="col-xs-1">調理法</th>
+              <th  class="col-xs-1">総カロリー</th>
+              <th  class="col-xs-1">PFCバランス</th>
+              <th  class="col-xs-1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recipes.each do |recipe| %>
+            <tr>
+              <td class="p-center_v"><%= recipe.id %></td>
+              <td class="p-center_v"><%= attachment_image_tag recipe, :dish_image, :fill, 70, 70, format: 'jpeg' , class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %></td>
+              <td class="p-center_v"><%= recipe.dish_name %></td>
+              <td class="p-center_v"><%= recipe.method %></td>
+              <td class="p-center_v"><%= (recipe.total_calorie).round %></td>
+              <td class="p-center_v">
+                <p><%= (recipe.protein_ratio).round %>%</p>
+                <p><%= (recipe.fat_ratio).round %>%</p>
+                <p><%= (recipe.carbohydrate_ratio).round %>%</p>
+              </td>
+              <td class="p-center">
+                <div data-turbolinks="false">
+                  <%= link_to "詳細",recipe_path(recipe),class: "btn btn-outline-dark" %>
+                </div>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

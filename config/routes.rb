@@ -16,9 +16,20 @@ Rails.application.routes.draw do
 	resources :users, only: [:show, :index, :edit, :update]
 
 
-	get 'recipes/search' => 'recipes#search', as: 'search'
+  get 'recipes/search' => 'recipes#search', as: 'search_recipes'
+  get 'recipes/input' => 'recipes#input', as: 'input_recipe'
+  get 'recipes/confirm' => 'recipes#confirm', as: 'confirm_recipe'
 	resources :recipes
 
-	resources :intake_logs
-	resources :physical_logs
+  resources :recipe_ingredients, only: [:create, :edit, :update, :destroy]
+  resources :intake_ingredients, only: [:edit, :update, :destroy]
+  resources :intake_recipes, only: [:edit, :update, :destroy]
+
+  post 'intake_ingredient' => 'intake_ingredients#create', as: 'create_intake_ingredient'
+
+  post 'intake_recipe' => 'intake_recipes#create', as: 'create_intake_recipe'
+
+	resources :intake_logs, only: [:index, :show]
+  resources :progress_logs
+  resources :ingredients
 end

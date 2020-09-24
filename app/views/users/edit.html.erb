@@ -1,30 +1,22 @@
-<div class="container">
-	<div class="row">
-		<h3>目標設定</h3>
-	</div>
-
+<div class="users_edit">
 	<%= form_with model: current_user, url: user_path, method: :patch do |f| %>
-	<div class="row">
-		<div class="row">
-			<h3>入力項目</h3>
-		</div>
-		<div class="row">
-			<h3>必須項目</h3>
-		</div>
-		<div class="row">
-			<h3>現在の体重</h3>
-			<%= f.number_field :current_weight, step: "0.1", min: "0", class: 'form-control' %>kg
-			<h3>目標体重</h3>
-			<%= f.number_field :target_weight, step: "0.1", min: "0", class: 'form-control' %>kg
+	<div class="grid">
+
+		<div class="required-item">
+			<p class="box-title">必須項目</p>
+			<div class="content">
+				<h5>現在の体重</h5>
+				<%= f.number_field :current_weight, step: "0.1", min: "0", class: 'form-control' %>kg
+				<h5>目標体重</h5>
+				<%= f.number_field :target_weight, step: "0.1", min: "0", class: 'form-control' %>kg
+				<h5>現在の体脂肪率</h5>
+				<%= f.number_field :current_body_fat, min: "0", max: "70", class: 'form-control' %>
+			</div>
 		</div>
 
-		<div class="row">
-			<h3>選択項目</h3>
-		</div>
-		<div class="row">
-			<h3>現在の体脂肪</h3>
-			<%= f.number_field :current_body_fat, min: "0", max: "70", class: 'form-control' %>
-			<h3>活動レベル</h3>
+		<div class="optional-item">
+			<p class="box-title">選択項目</p>
+			<h5>活動レベル</h5>
 			<%= f.select :active_factor, {
 				'1. 運動を全くしない、デスクワークなので仕事でも動かない(運動量レベル1.2)': 	1.2,
 				'2. 週に１～２回軽い運動をする、軽めの運動(運動量レベル1.375)': 			1.375,
@@ -32,8 +24,8 @@
 				'4. １週間に４～５回筋トレをする、それなりにハード(運動量レベル1.725)': 		1.725,
 				'5. ほぼ毎日ハードなトレーニング、肉体労働(運動量レベル1.9)': 				1.9,
 			}, {}, { class: 'form-control' } %>
-			<h3>一週間の目標</h3>
-			<%= f.number_field :weekly_target_weight, step: "0.1", min: "0", max: "1", :value => 0.5, class: 'form-control' %>kg
+			<h5>一週間の目標</h5>
+			<%= f.number_field :weekly_target_weight, step: "0.1", min: "0", max: "1", class: 'form-control' %>kg
 
 			<label for="protein_magnification">タンパク質倍率：</label>
 			<select id="protein_magnification" name="protein_magnification" class='form-control' >
@@ -45,42 +37,16 @@
 			</select>
 		</div>
 
-	</div>
-
-	<div class="row">
-		<p>プロジェクト詳細</p>
-
-		<div class="row">
-			<p>一日の摂取カロリー</p>
-			<div id="bmr"></div>
-		</div>
-
-		<div class="row">
-			<p>一日の摂取カロリー</p>
-			<div id="maintenance_calorie"></div>
-		</div>
-
-		<div class="row">
-			<p>一日の摂取カロリー</p>
+		<div class="daily-intake-target-box">
+			<p class="box-title">一日の摂取カロリー目標</p>
 			<div id="day_limit_calorie"></div>
 		</div>
-
-		<div class="row">
-			<p>プロジェクト期間</p>
-
-		</div>
-
-		<div class="row">
-			<p>目標体重</p>
-			<div id="test"></div>
-		</div>
-
 	</div>
 
-	<div class="row">				　　<!-- 入力完了ボタン -->
-		<%= f.submit "作成" ,:class => 'btn btn-primary col-xs-4 col-xs-offset-4' %>
+	<div>
+		<%= f.submit "保存" ,:class => 'btn btn-primary'%>
 	</div>
 	<% end %>
 </div>
 
-<%= javascript_include_tag 'project.js' %>
+<%= javascript_include_tag 'calorie_calculation.js' %>

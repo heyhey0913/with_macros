@@ -1,0 +1,44 @@
+.users{
+  .grid > * {
+    border-radius: 15px;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+        grid-template:
+      "box1  box3  box4"  300px
+      "box1  box5  box5"  50px
+      "box2  box5  box5"  250px
+      "0000  box5  box5"  1fr /
+      3fr    4fr   3fr;
+  }
+
+  .user-info-box {
+    grid-area: box1;
+    background-color: #E8D0FA;
+  }
+
+  .user-recipes-box {
+    grid-area: box2;
+    background-color: #F5C8EE;
+  }
+
+  .intake-info-box {
+    grid-area: box3;
+    background-color: #B9E8FD;
+  }
+
+  .progress-info-box {
+    grid-area: box4;
+    background-color: #F8B9C3;
+  }
+
+  .intake-contents-box {
+    grid-area: box5;
+    background-color: #FAFAC5;
+  }
+}

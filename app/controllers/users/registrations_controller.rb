@@ -70,7 +70,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params.require(:user).permit(
         :nickname,
         :optional_id,
-        :profile_image_id,
+        :profile_image,
         :email,
         :is_valid,
         :initial_weight,

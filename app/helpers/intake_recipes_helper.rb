@@ -1,0 +1,2 @@
+module IntakeRecipesHelper
+end
