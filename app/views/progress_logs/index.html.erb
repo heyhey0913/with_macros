@@ -16,7 +16,7 @@
           <tbody>
             <% @progress_logs.each do |progress_log| %>
             <tr>
-              <td class="p-center_v"><%= attachment_image_tag progress_log, :body_image, :fill, 70, 70, format: 'jpg' , class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %></td>
+              <td class="p-center_v"><%= attachment_image_tag progress_log, :body_image, :fill, 70, 70, class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %></td>
               <td class="p-center_v"><%= progress_log.recorded_on.strftime('%Y/%m/%d') %></td>
               <td class="p-center_v">
                 <%= progress_log.weight %> kg

@@ -7,7 +7,7 @@
       ID : <%= current_user.optional_id %>
       <br>
       <br>
-      <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100,  class: "rounded-circle pull-left profile-img", fallback: "no_image.jpg", size:'100x100' %>
+      <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100,  class: "rounded-circle pull-left profile-img", fallback: "no_image.png", size:'100x100' %>
       <br>
       <br>
       <div class="col-xs-1"><%= link_to '会員情報を編集する', edit_user_registration_path(current_user), class: "btn btn-outline-dark" %></div>
