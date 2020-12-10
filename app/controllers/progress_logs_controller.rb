@@ -6,26 +6,21 @@ class ProgressLogsController < ApplicationController
   end
 
   def create
-    if ProgressLog.where(recorded_on: params[:progress_log][:recorded_on]).exists?
-      flash[:alert] = "その日付の経過記録はすでに存在しています。"
+    if params[:progress_log][:weight].blank?
+      flash[:alert] = "必須項目が入力されていません。"
       redirect_to new_progress_log_path
     else
-      if params[:progress_log][:weight].blank?
-        flash[:alert] = "必須項目が入力されていません。"
-        redirect_to new_progress_log_path
+      @progress_log = ProgressLog.new(progress_log_params)
+      @progress_log.user_id = current_user.id
+
+      if @progress_log.save
+        # 経過記録の日付が最新の場合、ユーザーの現在値を更新
+        current_parameter_update
+
+        flash[:notice] = "経過記録を登録しました。"
+        redirect_to users_path
       else
-        @progress_log = ProgressLog.new(progress_log_params)
-        @progress_log.user_id = current_user.id
-
-        if @progress_log.save
-          # 経過記録の日付が最新の場合、ユーザーの現在値を更新
-          current_parameter_update
-
-          flash[:notice] = "経過記録を登録しました。"
-          redirect_to users_path
-        else
-          render :new
-        end
+        render :new
       end
     end
   end
@@ -45,11 +40,11 @@ class ProgressLogsController < ApplicationController
   def update
     if ProgressLog.where(recorded_on: params[:progress_log][:recorded_on]).exists?
       flash[:alert] = "その日付の経過記録はすでに存在しています。"
-      redirect_to edit_progress_log_path(@ingredient)
+      redirect_to edit_progress_log_path(params[:id])
     else
       if params[:progress_log][:weight].blank?
         flash[:alert] = "必須項目が入力されていません。"
-        redirect_to edit_progress_log_path(@ingredient)
+        redirect_to edit_progress_log_path(params[:id])
       else
         @progress_log = ProgressLog.find(params[:id])
         if @progress_log.update(progress_log_params)
