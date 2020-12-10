@@ -22,7 +22,7 @@
             <% @recipes.each do |recipe| %>
             <tr>
               <td class="p-center_v"><%= recipe.id %></td>
-              <td class="p-center_v"><%= attachment_image_tag recipe, :dish_image, :fill, 70, 70, format: 'jpeg' , class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %></td>
+              <td class="p-center_v"><%= attachment_image_tag recipe, :dish_image, :fill, 70, 70, class: "pull-left profile-img", fallback: "body_image.png", size:'70x70' %></td>
               <td class="p-center_v"><%= recipe.dish_name %></td>
               <td class="p-center_v"><%= recipe.method %></td>
               <td class="p-center_v"><%= (recipe.total_calorie).round %></td>
